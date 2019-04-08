@@ -1,0 +1,1 @@
+2019-02-17 03:26:43	guest	https://app.ticketomo.com/http404/	Error: 	Exception: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '41-0' for key 'PRIMARY' (in /home/ratholrm/app.ticketomo.com/wire/core/FieldtypeMulti.php line 295)

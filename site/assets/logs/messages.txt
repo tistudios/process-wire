@@ -1,0 +1,8 @@
+2018-12-26 21:31:35	saarthak	https://ticketomo.com/masterchief/module/	Creating table: process_forgot_password
+2018-12-27 05:11:26	saarthak	https://ticketomo.com/masterchief/setup/template/removeFields	Deleted field "page_reference" data in 0 row(s) from 0 page(s) using template "Login". [page-by-page]
+2018-12-27 05:11:26	saarthak	https://ticketomo.com/masterchief/setup/template/removeFields	Deleted field "Ref" data in 0 row(s) from 0 page(s) using template "Login". [page-by-page]
+2019-01-10 19:51:10	saarthak	https://ticketomo.com/masterchief/profile/	Profile saved - admin_theme
+2019-01-10 19:51:23	saarthak	https://ticketomo.com/masterchief/profile/	Profile saved - admin_theme
+2019-01-10 20:01:23	saarthak	https://ticketomo.com/masterchief/setup/template/removeFields	Deleted field "admin_theme" data in 0 row(s) from 0 page(s) using template "page2". [page-by-page]
+2019-02-23 07:38:00	saarthak	https://app.ticketomo.com/masterchief/setup/template/removeFields	Deleted field "page_reference" data in 0 row(s) from 0 page(s) using template "home". [page-by-page]
+2019-02-24 03:04:16	saarthak	https://app.ticketomo.com/masterchief/setup/template/removeFields	Deleted field "body" data in 0 row(s) from 0 page(s) using template "dashboard". [page-by-page]

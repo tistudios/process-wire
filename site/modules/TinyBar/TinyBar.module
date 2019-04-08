@@ -1,0 +1,107 @@
+<?php
+
+/**
+ *
+ * TinyBar - ProcessWire Module
+ *
+ * @author Anssi Laitila
+ * https://github.com/anssilaitila/TinyBar
+ *
+ * @date_created 18/02/2019
+ *
+ * ProcessWire 2.x
+ * Copyright (C) 2011 by Ryan Cramer
+ * Licensed under GNU/GPL v2, see LICENSE.TXT
+ *
+ * http://www.processwire.com
+ * http://www.ryancramer.com
+ *
+ */
+
+class TinyBar extends WireData implements Module, ConfigurableModule {
+
+  public static function getModuleInfo() {
+    return array(
+      'title' => 'TinyBar',
+      'summary' => '',
+      'href' => '',
+      'version' => 100,
+      'permanent' => false,
+      'autoload' => true,
+      'singular' => true,
+    );
+  }
+
+  static public function getDefaultData() {
+    return array();
+  }
+
+  public function __construct() {
+    foreach(self::getDefaultData() as $key => $value) {
+		  $this->$key = $value;
+	  }
+  }
+
+  public function init() {
+    if ($this->user->isGuest()) return false;
+    $this->addHookAfter('Page::render', $this, "pageRender");
+  }
+
+  public function pageRender($event) {
+
+    $page = $event->object;		
+    $info = self::getModuleInfo();
+    $pw_version = $this->config->version;
+    $css_url = $this->config->urls->TinyBar . 'TinyBar.css';
+
+    $out =  '<link rel="stylesheet" type="text/css" href="' . $css_url . '?v=' . $info['version'] . '"/>';
+    $out .= '</body>';
+    
+    $event->return = str_ireplace('</body>', $out, $event->return);
+
+    $admin_area = $page->template == 'admin' ? 1 : 0;
+
+    $page_id = (int) $_GET['id'];
+    $page_url = $page_id ? wire('pages')->get($page_id)->url : $page->url;
+
+    $page_parent_id = (int) $_GET['parent_id'];
+    $page_parent_url = $page_parent_id ? wire('pages')->get($page_parent_id)->url : $page->url;
+
+    $out = '<ul class="tinybar">';
+    $out .= '<li><a href="/" class="tinybar-url">' . __('Browse /') . '</a></li>';
+    $out .= '<li><a href="/processwire/page/" class="tinybar-url tinybar-this">' . __('Pages') . '</a></li>';      
+
+    if ($page_url == '/processwire/page/add/') {
+      $out .= '<li><span class="tinybar-url tinybar-active">' . __('Adding new page under') . ' ' . $page_parent_url . '</span></li>';
+    } else if ($page->url == '/processwire/page/edit/') {
+      $out .= '<li><a href="' . $page_url . '" class="tinybar-url">' . __('Browse') . ' ' . $page_url . '</a></li>';
+      $out .= '<li><span class="tinybar-url tinybar-active">' . __('Editing') . ' ' . $page_url . '</span></li>';
+    }
+
+    if ($page->editable() && !$page->is(Page::statusLocked)) {
+      $out .= '<li><a href="' . $this->config->urls->admin . 'page/edit/?id=' . $this->page->id . '" class="tinybar-edit">' . __('Edit') . '</a></li>';
+    } else if (!$page->editable()) {
+      $out .= '<li><span>' . __('(read-only)') . '</span></li>';
+    }
+
+    if ($page->addable() && !$admin_area) {
+      $out .= '<li><a href="' . $this->config->urls->admin . 'page/add/?parent_id=' . $this->page->id . '" class="tinybar-add">' . __('New page') . '</a></li>';
+    }
+
+    $out .= '<li class="tinybar-logout"><a href="' . $this->config->urls->admin . 'login/logout/' . '">' . __('Logout') . '</a></li>';
+    $out .= '<li class="tinybar-pw-version"><span>' . $pw_version . '</span></li>';
+    $out .= '</ul>';
+    $out .= '</body>';
+
+    $event->return = str_ireplace('</body>', $out, $event->return);
+  }
+
+  static public function getModuleConfigInputfields(array $data) {
+
+    $fields = new InputfieldWrapper();
+    $modules = wire('modules');
+    $data = array_merge(self::getDefaultData(), $data);
+    return $fields;
+  }
+
+}

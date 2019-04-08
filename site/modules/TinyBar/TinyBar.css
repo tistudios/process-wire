@@ -1,0 +1,64 @@
+html {
+	padding-top: 36px;
+}
+
+.tinybar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	background: #7A9D96;
+	z-index: 999;
+}
+
+.tinybar li {
+	display: block;
+	float: left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 36px;
+}
+
+.tinybar li a, .tinybar li span {
+	display: inline-block;
+	float: left;
+	padding: 5px;
+	margin: 5px;
+	line-height: 14px;
+	background: #CAE4DB;
+	font-size: 16px;
+	border-radius: 3px;
+	font-family: arial, sans-serif;
+	color: #505050;
+	text-decoration: none;
+}
+
+.tinybar li a:hover {
+	background: #fff;
+}
+
+.tinybar .tinybar-url {
+  background: #CAE4DB;
+  font-size: 12px;
+}
+
+.tinybar .tinybar-active {
+  background: #e31414;
+  color: #fff;
+}
+
+.tinybar .tinybar-pw-version {
+	float: right;
+}
+
+.tinybar .tinybar-pw-version span {
+	font-size: 12px;
+}
+
+.tinybar .tinybar-logout {
+	float: right;
+}
